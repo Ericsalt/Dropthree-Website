@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/salga/Downloads/index_1.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dropthree — Tecnologia como Liberdade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Syne',sans-serif;
+  background:#080809;
+  color:#e8e6e1;
+  overflow-x:hidden;
+  cursor:none;
+}
+a,button,input,select{cursor:pointer!important}
+input[type=text],input[type=number]{cursor:text!important}
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────── */
+.cursor{
+  width:10px;height:10px;border-radius:50%;
+  background:#7c3aed;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .1s,width .2s,height .2s,background .2s;
+  mix-blend-mode:difference;
+}
+.cursor-ring{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(124,58,237,0.5);
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .18s ease-out,width .2s,height .2s;
+}
+body:has(a:hover) .cursor,.cursor.hov{width:20px;height:20px;background:#f7931a}
+body:has(a:hover) .cursor-ring,.cursor-ring.hov{width:56px;height:56px;border-color:rgba(247,147,26,0.4)}
+
+/* ─── CSS VARIABLES ─────────────────────────────────────────── */
+:root{
+  --purple:#7c3aed;
+  --purple-light:#a78bfa;
+  --purple-faint:rgba(124,58,237,0.08);
+  --orange:#f7931a;
+  --orange-faint:rgba(247,147,26,0.08);
+  --orange-ring:rgba(247,147,26,0.3);
+  --bg:#080809;
+  --bg2:#0f0f11;
+  --bg3:#161618;
+  --bg4:#1e1e21;
+  --text:#e8e6e1;
+  --text2:#9b9890;
+  --text3:#5a5855;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.13);
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─────────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 48px;
+  border-bottom:1px solid transparent;
+  transition:border-color .3s,background .3s,padding .3s;
+}
+header.scrolled{
+  border-bottom:1px solid var(--border);
+  background:rgba(8,8,9,0.85);
+  backdrop-filter:blur(20px);
+  padding:14px 48px;
+}
+.logo{
+  font-size:22px;font-weight:800;
+  color:var(--purple-light);
+  letter-spacing:-0.02em;
+  text-decoration:none;
+}
+nav{display:flex;gap:0;align-items:center}
+nav a{
+  color:var(--text2);text-decoration:none;
+  font-size:13px;font-weight:500;letter-spacing:0.04em;
+  padding:8px 16px;border-radius:6px;
+  transition:color .2s,background .2s;
+}
+nav a:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+.nav-cta{
+  background:var(--purple)!important;color:#fff!important;
+  margin-left:8px;padding:8px 20px!important;
+  transition:opacity .2s!important;
+}
+.nav-cta:hover{opacity:0.85;background:var(--purple)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text2);transition:.3s}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:140px 48px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;
+  width:700px;height:700px;
+  background:radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+  top:-200px;left:50%;transform:translateX(-50%);
+  pointer-events:none;
+}
+.hero-glow2{
+  position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle, rgba(247,147,26,0.09) 0%, transparent 70%);
+  bottom:-100px;right:-100px;
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--purple-light);margin-bottom:28px;
+  background:rgba(124,58,237,0.1);
+  border:1px solid rgba(124,58,237,0.2);
+  padding:6px 14px;border-radius:20px;
+  width:fit-content;
+}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple-light)}
+.hero h1{
+  font-size:clamp(42px,7vw,88px);font-weight:800;
+  line-height:1.0;letter-spacing:-0.04em;
+  color:#fff;
+  margin-bottom:28px;
+}
+.hero h1 em{font-style:normal;color:var(--purple-light)}
+.hero h1 .accent{
+  position:relative;display:inline-block;
+  color:var(--orange);
+}
+.hero-desc{
+  font-size:clamp(15px,2vw,18px);font-weight:400;
+  color:var(--text2);line-height:1.7;
+  max-width:520px;margin-bottom:44px;
+  font-family:'Lora',serif;font-style:italic;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--purple);color:#fff;
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:600;
+  padding:14px 28px;border-radius:10px;
+  text-decoration:none;letter-spacing:0.02em;
+  transition:opacity .2s,transform .2s;
+}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--text2);
+  font-family:'Syne',sans-serif;font-size:14px;font-weight:500;
+  padding:14px 28px;border-radius:10px;
+  text-decoration:none;letter-spacing:0.02em;
+  border:1px solid var(--border2);
+  transition:color .2s,border-color .2s,transform .2s;
+}
+.btn-secondary:hover{color:var(--text);border-color:rgba(255,255,255,0.25);transform:translateY(-1px)}
+
+.hero-stats{
+  display:flex;gap:40px;margin-top:64px;
+  border-top:1px solid var(--border);
+  padding-top:40px;flex-wrap:wrap;
+}
+.stat-item{}
+.stat-num{font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em}
+.stat-num span{color:var(--purple-light)}
+.stat-label{font-size:12px;color:var(--text3);margin-top:2px;letter-spacing:0.04em}
+
+/* ─── SECTION BASE ───────────────────────────────────────────── */
+section{position:relative;z-index:1;padding:120px 48px}
+.section-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--purple-light);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--purple-light)}
+.section-title{
+  font-size:clamp(28px,4vw,48px);font-weight:800;
+  line-height:1.1;letter-spacing:-0.03em;
+  color:#fff;margin-bottom:16px;
+}
+.section-sub{
+  font-size:16px;color:var(--text2);
+  font-family:'Lora',serif;font-style:italic;
+  max-width:480px;line-height:1.7;margin-bottom:60px;
+}
+
+/* ─── DIVIDER LINE ───────────────────────────────────────────── */
+.h-rule{width:100%;height:1px;background:var(--border);border:none;margin:0}
+
+/* ─── START SECTION ──────────────────────────────────────────── */
+.start{background:var(--bg2)}
+.steps-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+}
+.step-item{
+  background:var(--bg2);
+  padding:36px 28px;
+  transition:background .25s;
+  position:relative;
+}
+.step-item:hover{background:var(--bg3)}
+.step-num{
+  font-family:'DM Mono',monospace;
+  font-size:11px;font-weight:400;
+  color:var(--purple-light);
+  letter-spacing:0.1em;
+  margin-bottom:20px;
+  opacity:0.7;
+}
+.step-item h3{
+  font-size:18px;font-weight:700;color:#fff;
+  margin-bottom:10px;letter-spacing:-0.02em;
+}
+.step-item p{font-size:14px;color:var(--text2);line-height:1.6}
+.step-arrow{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  color:var(--border2);font-size:20px;
+  transition:color .2s,transform .2s;
+}
+.step-item:hover .step-arrow{color:var(--purple-light);transform:translateY(-50%) translateX(3px)}
+
+/* ─── TECH SECTION ───────────────────────────────────────────── */
+.tech{background:var(--bg)}
+.tech-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+.tech-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:16px;padding:36px;
+  transition:border-color .25s,transform .25s;
+  position:relative;overflow:hidden;
+}
+.tech-card::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:160px;height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,0.12),transparent);
+  transition:opacity .3s;opacity:0;
+}
+.tech-card:hover::before{opacity:1}
+.tech-card:hover{border-color:rgba(124,58,237,0.3);transform:translateY(-3px)}
+.tech-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(124,58,237,0.12);
+  border:1px solid rgba(124,58,237,0.2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+  font-size:18px;
+}
+.tech-card h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em}
+.tech-card p{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.tech-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{
+  font-size:11px;font-weight:600;letter-spacing:0.06em;
+  padding:4px 10px;border-radius:6px;
+  background:rgba(124,58,237,0.1);
+  border:1px solid rgba(124,58,237,0.2);
+  color:var(--purple-light);
+}
+
+/* ─── BITCOIN CALCULATOR ─────────────────────────────────────── */
+.btc-section{background:var(--bg2)}
+.btc-layout{
+  display:grid;
+  grid-template-columns:1fr 440px;
+  gap:60px;align-items:start;
+}
+.btc-intro{}
+.btc-calc-wrap{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:32px;
+  position:sticky;top:100px;
+}
+.btc-calc-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+}
+.btc-brand{display:flex;align-items:center;gap:10px}
+.btc-glyph{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:#fff;
+  position:relative;flex-shrink:0;
+}
+.btc-glyph::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1px solid var(--orange-ring)}
+.btc-brand-text .sub{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text2)}
+.btc-brand-text .title{font-family:'Lora',serif;font-size:14px;color:var(--text);line-height:1.2}
+.btc-actions{display:flex;align-items:center;gap:8px}
+.live-dot{
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;color:#4ade80;letter-spacing:0.05em;
+  background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);
+  padding:3px 10px;border-radius:20px;white-space:nowrap;
+}
+.live-dot::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.theme-toggle{
+  width:32px;height:18px;border-radius:9px;
+  border:1px solid var(--border2);background:var(--bg4);
+  cursor:none;position:relative;transition:.2s;flex-shrink:0;
+}
+.theme-toggle::after{
+  content:'';position:absolute;top:2.5px;left:2.5px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--text2);transition:.2s;
+}
+.light-mode .theme-toggle::after{transform:translateX(14px);background:var(--orange)}
+
+.quote-strip{
+  border-left:2px solid var(--orange);
+  padding:10px 14px;margin-bottom:20px;
+  background:var(--orange-faint);border-radius:0 8px 8px 0;
+  transition:opacity .4s;
+}
+.quote-strip .qt{
+  font-family:'Lora',serif;font-size:12px;font-style:italic;
+  color:var(--text);line-height:1.6;margin-bottom:3px;
+}
+.quote-strip .qa{font-size:9px;letter-spacing:.08em;color:var(--text2);text-transform:uppercase}
+
+.price-display{margin-bottom:6px}
+.price-main{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(24px,5vw,32px);font-weight:300;
+  color:#fff;letter-spacing:-0.03em;
+}
+.price-sym{font-size:13px;color:var(--text2);margin-left:4px}
+.price-badge{
+  font-family:'DM Mono',monospace;font-size:11px;
+  padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:16px;
+}
+.up{background:rgba(74,222,128,0.12);color:#4ade80}
+.dn{background:rgba(248,113,113,0.12);color:#f87171}
+
+.countdown-wrap{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.cd-txt{font-size:10px;color:var(--text3);white-space:nowrap}
+.cd-bar-bg{flex:1;height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.cd-bar{height:100%;background:var(--orange);transition:width .9s linear}
+
+.cur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+.cur-btn{
+  padding:6px 4px;font-family:'Syne',sans-serif;
+  font-size:10px;letter-spacing:.05em;font-weight:500;
+  color:var(--text2);background:transparent;
+  border:1px solid var(--border);border-radius:8px;cursor:none;transition:.12s;
+}
+.cur-btn:hover{border-color:var(--border2);color:var(--text)}
+.cur-btn.active{border-color:var(--orange);color:var(--orange);background:var(--orange-faint)}
+
+.field-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:5px}
+.inp-wrap{
+  display:flex;align-items:center;
+  border:1px solid var(--border2);border-radius:8px;overflow:hidden;margin-bottom:12px;
+  background:var(--bg4);transition:border-color .15s;
+}
+.inp-wrap:focus-within{border-color:var(--orange)}
+.inp-wrap input{
+  flex:1;border:none;background:transparent;
+  font-family:'DM Mono',monospace;font-size:18px;font-weight:300;
+  color:#fff;padding:10px 12px;outline:none;min-width:0;
+}
+.inp-sfx{font-size:10px;color:var(--text2);padding:0 12px 0 4px;letter-spacing:.04em;white-space:nowrap}
+
+.swap-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.swap-line{flex:1;border-top:1px solid var(--border)}
+.swap-btn{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--border2);background:transparent;
+  cursor:none;color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  transition:.12s;flex-shrink:0;
+}
+.swap-btn:hover{background:var(--bg4);color:#fff}
+
+.res-card{
+  border:1px solid var(--border);border-radius:12px;
+  padding:14px 16px;margin-bottom:12px;
+  background:var(--bg2);position:relative;overflow:hidden;
+}
+.res-accent{position:absolute;top:0;left:0;right:0;height:2px;background:var(--orange);opacity:.6}
+.res-main{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(18px,4vw,24px);font-weight:300;
+  color:#fff;letter-spacing:-0.02em;margin-bottom:2px;
+}
+.res-sub{font-size:11px;color:var(--text2)}
+
+.sats-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-top:1px solid var(--border);margin-bottom:16px;
+}
+.sats-lbl{font-size:10px;color:var(--text2);letter-spacing:.05em}
+.sats-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
+
+.axiom-strip{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.ax-tag{
+  font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;
+  border:1px solid var(--border);color:var(--text2);cursor:none;transition:.15s;
+}
+.ax-tag:hover,.ax-tag.on{border-color:var(--orange);color:var(--orange);background:var(--orange-faint)}
+.calc-footer{display:flex;justify-content:space-between;align-items:center}
+.upd-note{font-size:9px;color:var(--text3)}
+.powered{font-size:9px;color:var(--text3)}
+.powered span{color:var(--purple-light);font-weight:600}
+
+/* ─── PHILOSOPHY ─────────────────────────────────────────────── */
+.philosophy{background:var(--bg)}
+.philosophy-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.phil-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:16px;padding:36px 28px;
+  transition:border-color .25s,transform .25s;
+  position:relative;
+}
+.phil-card:hover{border-color:rgba(167,139,250,0.3);transform:translateY(-3px)}
+.phil-quote-mark{
+  font-family:'Lora',serif;font-size:56px;
+  color:rgba(124,58,237,0.15);line-height:1;
+  margin-bottom:12px;
+}
+.phil-card p{
+  font-family:'Lora',serif;font-size:15px;font-style:italic;
+  color:var(--text);line-height:1.7;margin-bottom:20px;
+}
+.phil-author{
+  font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--purple-light);
+}
+
+/* ─── PATH SECTION ───────────────────────────────────────────── */
+.path{background:var(--bg2)}
+.path-timeline{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;
+}
+.path-timeline::before{
+  content:'';position:absolute;
+  top:32px;left:16%;right:16%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--purple),var(--orange),transparent);
+  opacity:.4;z-index:0;
+}
+.path-step{
+  padding:0 20px;text-align:center;position:relative;z-index:1;
+}
+.path-dot{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  font-family:'DM Mono',monospace;font-size:18px;font-weight:300;
+  color:var(--text2);
+  transition:.25s;
+}
+.path-step:hover .path-dot{
+  border-color:var(--purple);
+  color:var(--purple-light);
+  background:rgba(124,58,237,0.08);
+}
+.path-step:last-child .path-dot{
+  border-color:rgba(247,147,26,0.4);
+  color:var(--orange);
+}
+.path-step h3{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-0.02em}
+.path-step p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:60px 48px 40px;
+}
+.footer-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:48px;flex-wrap:wrap;gap:40px;
+}
+.footer-brand .logo{font-size:24px;font-weight:800;color:var(--purple-light);display:block;margin-bottom:10px}
+.footer-brand p{font-size:13px;color:var(--text2);max-width:240px;line-height:1.6;font-family:'Lora',serif;font-style:italic}
+.footer-links{display:flex;gap:48px;flex-wrap:wrap}
+.footer-col h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.footer-col a{display:block;font-size:13px;color:var(--text2);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);padding-top:28px;flex-wrap:wrap;gap:12px;
+}
+.footer-bottom p{font-size:12px;color:var(--text3)}
+
+/* ─── REVEAL ANIMATIONS ─────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:1024px){
+  .btc-layout{grid-template-columns:1fr;gap:40px}
+  .btc-calc-wrap{position:static}
+  .tech-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  header{padding:16px 20px}
+  header.scrolled{padding:12px 20px}
+  nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;flex-direction:column;justify-content:center;align-items:center;gap:12px;background:rgba(8,8,9,0.97);z-index:99}
+  nav.open{display:flex}
+  nav a{font-size:18px;padding:12px 24px}
+  .hamburger{display:flex;z-index:101;position:relative}
+  section{padding:80px 20px}
+  .hero{padding:120px 20px 60px}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .tech-grid{grid-template-columns:1fr}
+  .philosophy-grid{grid-template-columns:1fr}
+  .path-timeline{grid-template-columns:1fr 1fr;gap:24px}
+  .path-timeline::before{display:none}
+  .hero-stats{gap:24px}
+  footer{padding:40px 20px 28px}
+  .footer-top{flex-direction:column;gap:32px}
+  .footer-links{gap:32px}
+  .cursor,.cursor-ring{display:none}
+  body{cursor:auto}
+  nav a,button,.cur-btn,.ax-tag,.swap-btn,.cur-btn,.theme-toggle{cursor:pointer}
+}
+@media(max-width:480px){
+  .steps-grid{grid-template-columns:1fr}
+  .path-timeline{grid-template-columns:1fr}
+  .hero h1{font-size:38px}
+  .btc-calc-wrap{padding:20px}
+}
+
+/* ─── LIGHT MODE ─────────────────────────────────────────────── */
+.light-mode{
+  --bg:#f5f4f0;--bg2:#eceae6;--bg3:#e3e1dc;--bg4:#dad8d3;
+  --text:#1a1917;--text2:#5c5a55;--text3:#9b9890;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.16);
+}
+.light-mode body{background:var(--bg);color:var(--text)}
+.light-mode .hero h1,.light-mode .section-title,.light-mode .step-item h3,
+.light-mode .tech-card h3,.light-mode .path-step h3,.light-mode .res-main,
+.light-mode .phil-card p,.light-mode .price-main{color:var(--text)}
+.light-mode .hero-glow{background:radial-gradient(circle,rgba(124,58,237,0.1) 0%,transparent 70%)}
+.light-mode .inp-wrap input,.light-mode .price-main{color:var(--text)}
+</style>
+</head>
+<body id="body">
+
+<!-- CURSORS -->
+<div class="cursor" id="cur" style="left: 908px; top: 906px;"></div>
+<div class="cursor-ring" id="curR" style="left: 952.625px; top: 760.278px;"></div>
+
+<!-- HEADER -->
+<header id="header" class="">
+  <a href="file:///C:/Users/salga/Downloads/index_1.html#" class="logo">Dropthree</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <nav id="nav">
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#" onclick="scrollTo_(null);closeNav();return false">Início</a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#start" onclick="scrollTo_(&#39;start&#39;);closeNav();return false">Começar</a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#tech" onclick="scrollTo_(&#39;tech&#39;);closeNav();return false">Tecnologia</a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#philosophy" onclick="scrollTo_(&#39;philosophy&#39;);closeNav();return false">Liberdade</a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#path" onclick="scrollTo_(&#39;path&#39;);closeNav();return false">Caminho</a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#bitcoin" onclick="scrollTo_(&#39;bitcoin&#39;);closeNav();return false" class="nav-cta">₿ Calculadora</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-eyebrow">Tecnologia como ferramenta</div>
+  <h1>Construa sua<br><em>liberdade</em> com<br>código<span class="accent">.</span></h1>
+  <p class="hero-desc">Aprenda habilidades digitais reais. Construa projetos. Gere renda. Controle seu tempo.</p>
+  <div class="hero-actions">
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#start" onclick="scrollTo_(&#39;start&#39;);return false" class="btn-primary">
+      Começar do zero
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+    </a>
+    <a href="file:///C:/Users/salga/Downloads/index_1.html#bitcoin" onclick="scrollTo_(&#39;bitcoin&#39;);return false" class="btn-secondary">
+      Calculadora Bitcoin
+      <span style="color:var(--orange)">₿</span>
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">4<span>+</span></div>
+      <div class="stat-label">Caminhos de aprendizado</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">21<span>M</span></div>
+      <div class="stat-label">Bitcoin de limite máximo</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Possibilidades com código</div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<!-- START -->
+<section id="start" class="start">
+  <div class="section-eyebrow">Ponto de partida</div>
+  <h2 class="section-title reveal active">Começar do zero</h2>
+  <p class="section-sub reveal active">Um caminho simples e honesto para entrar em tecnologia</p>
+
+  <div class="steps-grid">
+    <div class="step-item reveal active">
+      <div class="step-num">01 —</div>
+      <h3>Escolha um caminho</h3>
+      <p>Front-end, Back-end, Dados ou Design. Cada um leva a lugares diferentes.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="step-item reveal active">
+      <div class="step-num">02 —</div>
+      <h3>Aprenda o básico</h3>
+      <p>Lógica de programação e uma linguagem. Simples assim.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="step-item reveal active">
+      <div class="step-num">03 —</div>
+      <h3>Pratique sempre</h3>
+      <p>Crie projetos simples. O código que você escreve é o que te ensina.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="step-item reveal active">
+      <div class="step-num">04 —</div>
+      <h3>Repita</h3>
+      <p>Consistência vence motivação. Todo dia, um pouco.</p>
+      <span class="step-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<!-- TECH -->
+<section id="tech" class="tech">
+  <div class="section-eyebrow">Habilidades</div>
+  <h2 class="section-title reveal active">Tecnologia</h2>
+  <p class="section-sub reveal active">Ferramentas que constroem liberdade real</p>
+
+  <div class="tech-grid">
+    <div class="tech-card reveal active">
+      <div class="tech-icon">⬡</div>
+      <h3>Front-end</h3>
+      <p>Criação de interfaces, sites e aplicações que as pessoas usam todos os dias.</p>
+      <div class="tech-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+    </div>
+    <div class="tech-card reveal active">
+      <div class="tech-icon">⬡</div>
+      <h3>Back-end</h3>
+      <p>Lógica, sistemas e a engrenagem invisível que faz tudo funcionar.</p>
+      <div class="tech-tags"><span class="tag">Node.js</span><span class="tag">APIs</span><span class="tag">Banco de dados</span></div>
+    </div>
+    <div class="tech-card reveal active">
+      <div class="tech-icon">⬡</div>
+      <h3>Dados</h3>
+      <p>Análise, visualização e decisões inteligentes baseadas em informação.</p>
+      <div class="tech-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Análise</span></div>
+    </div>
+    <div class="tech-card reveal active">
+      <div class="tech-icon">⬡</div>
+      <h3>Automação</h3>
+      <p>Ganhe tempo com código. Deixe as máquinas fazerem o trabalho repetitivo.</p>
+      <div class="tech-tags"><span class="tag">Scripts</span><span class="tag">Bots</span><span class="tag">IA</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<!-- BITCOIN CALCULATOR -->
+<section id="bitcoin" class="btc-section">
+  <div class="btc-layout">
+    <div class="btc-intro">
+      <div class="section-eyebrow">Calculadora ao vivo</div>
+      <h2 class="section-title reveal active">Bitcoin</h2>
+      <p class="section-sub reveal active" style="margin-bottom:32px">Preço em tempo real, atualizado automaticamente a cada 30 segundos. Converta entre BTC e 6 moedas globais.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:36px">
+        <div class="reveal active" style="display:flex;gap:14px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--orange-faint);border:1px solid var(--orange-ring);display:flex;align-items:center;justify-content:center;color:var(--orange);flex-shrink:0;font-size:14px">₿</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Descentralizado</div><div style="font-size:13px;color:var(--text2);line-height:1.5">Nenhum banco ou governo controla o Bitcoin</div></div>
+        </div>
+        <div class="reveal active" style="display:flex;gap:14px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--orange-faint);border:1px solid var(--orange-ring);display:flex;align-items:center;justify-content:center;color:var(--orange);flex-shrink:0;font-size:14px">⌘</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">21 milhões</div><div style="font-size:13px;color:var(--text2);line-height:1.5">Limite máximo imutável de Bitcoin no mundo</div></div>
+        </div>
+        <div class="reveal active" style="display:flex;gap:14px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--orange-faint);border:1px solid var(--orange-ring);display:flex;align-items:center;justify-content:center;color:var(--orange);flex-shrink:0;font-size:14px">◈</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Sua chave, seu Bitcoin</div><div style="font-size:13px;color:var(--text2);line-height:1.5">Custódia própria é soberania financeira real</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALCULATOR -->
+    <div class="btc-calc-wrap reveal active">
+      <div class="btc-calc-header">
+        <div class="btc-brand">
+          <div class="btc-glyph">₿</div>
+          <div class="btc-brand-text">
+            <div class="sub">Dropthree</div>
+            <div class="title">Calculadora Bitcoin</div>
+          </div>
+        </div>
+        <div class="btc-actions">
+          <div class="live-dot" id="live-badge">ao vivo</div>
+          <button class="theme-toggle" id="theme-btn" aria-label="Alternar tema"></button>
+        </div>
+      </div>
+
+      <div class="quote-strip" id="quote-strip" style="opacity: 1;">
+        <div class="qt" id="q-text">“Bitcoin não é uma moeda, é uma filosofia da resistência.”</div>
+        <div class="qa" id="q-author">— Andreas Antonopoulos</div>
+      </div>
+
+      <div id="price-area"><div class="price-display"><div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px"><span class="price-main">R$ 354.438,00</span><span class="price-sym">/ BTC</span></div><span class="price-badge dn">-0.72% 24h</span></div></div>
+
+      <div id="calc-body" style="display: block;">
+        <div class="countdown-wrap">
+          <span class="cd-txt" id="cd-txt">atualiza em 11s</span>
+          <div class="cd-bar-bg"><div class="cd-bar" id="cd-bar" style="width: 36.6667%;"></div></div>
+        </div>
+
+        <div class="cur-grid" id="cur-grid">
+          <button class="cur-btn active" data-c="BRL">BRL R$</button>
+          <button class="cur-btn" data-c="USD">USD $</button>
+          <button class="cur-btn" data-c="EUR">EUR €</button>
+          <button class="cur-btn" data-c="GBP">GBP £</button>
+          <button class="cur-btn" data-c="ARS">ARS $</button>
+          <button class="cur-btn" data-c="JPY">JPY ¥</button>
+        </div>
+
+        <p class="field-lbl" id="fiat-lbl">Valor em BRL</p>
+        <div class="inp-wrap">
+          <input type="text" inputmode="decimal" id="fiat-in" placeholder="0,00">
+          <span class="inp-sfx" id="fiat-sfx">R$</span>
+        </div>
+
+        <div class="swap-row">
+          <div class="swap-line"></div>
+          <button class="swap-btn" id="swap-btn">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2v12M4 6l4-4 4 4M4 10l4 4 4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <div class="swap-line"></div>
+        </div>
+
+        <p class="field-lbl">Bitcoin</p>
+        <div class="inp-wrap">
+          <input type="text" inputmode="decimal" id="btc-in" placeholder="0.00000000">
+          <span class="inp-sfx">BTC</span>
+        </div>
+
+        <div class="res-card">
+          <div class="res-accent"></div>
+          <div class="res-main" id="res-main">—</div>
+          <div class="res-sub" id="res-sub">Digite um valor acima</div>
+        </div>
+
+        <div class="sats-row" id="sats-row" style="display:none">
+          <span class="sats-lbl">Satoshis</span>
+          <span class="sats-val" id="sats-v">—</span>
+        </div>
+
+        <div class="axiom-strip" id="axiom-strip"><span class="ax-tag">Descentralizado</span><span class="ax-tag">Sem banco central</span><span class="ax-tag">21M de limite</span><span class="ax-tag">Sua chave, seu Bitcoin</span><span class="ax-tag">Resistente à censura</span></div>
+
+        <div class="calc-footer">
+          <span class="upd-note" id="upd-note">Atualizado às 21:15:19</span>
+          <span class="powered">por <span>Dropthree</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<!-- PHILOSOPHY -->
+<section id="philosophy" class="philosophy">
+  <div class="section-eyebrow">Ideias que movem</div>
+  <h2 class="section-title reveal active">Liberdade</h2>
+  <p class="section-sub reveal active">Palavras que moldaram nossa visão de mundo</p>
+
+  <div class="philosophy-grid">
+    <div class="phil-card reveal active">
+      <div class="phil-quote-mark">"</div>
+      <p>A maneira de ficar rico é possuir ativos que ganham enquanto você dorme.</p>
+      <div class="phil-author">Naval Ravikant</div>
+    </div>
+    <div class="phil-card reveal active">
+      <div class="phil-quote-mark">"</div>
+      <p>O livre mercado é o único mecanismo que descobriu como criar prosperidade de forma sustentável.</p>
+      <div class="phil-author">Friedrich Hayek</div>
+    </div>
+    <div class="phil-card reveal active">
+      <div class="phil-quote-mark">"</div>
+      <p>A inflação é o imposto mais cruel — atinge os mais pobres sem que possam votar contra.</p>
+      <div class="phil-author">Milton Friedman</div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-rule">
+
+<!-- PATH -->
+<section id="path" class="path">
+  <div class="section-eyebrow">O caminho</div>
+  <h2 class="section-title reveal active">Caminho da liberdade</h2>
+  <p class="section-sub reveal active">Tecnologia não é o fim. É o meio.</p>
+
+  <div class="path-timeline">
+    <div class="path-step reveal active">
+      <div class="path-dot">01</div>
+      <h3>Aprender</h3>
+      <p>Entenda o básico e construa uma base sólida. Sem atalhos.</p>
+    </div>
+    <div class="path-step reveal active">
+      <div class="path-dot">02</div>
+      <h3>Praticar</h3>
+      <p>Transforme conhecimento em projetos reais que funcionam.</p>
+    </div>
+    <div class="path-step reveal active">
+      <div class="path-dot">03</div>
+      <h3>Monetizar</h3>
+      <p>Use suas habilidades para gerar renda de forma independente.</p>
+    </div>
+    <div class="path-step reveal active">
+      <div class="path-dot" style="border-color:rgba(247,147,26,0.4);color:var(--orange)">₿</div>
+      <h3>Autonomia</h3>
+      <p>Controle seu tempo, suas escolhas e seu dinheiro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">Dropthree</span>
+      <p>Tecnologia como ferramenta de liberdade. Aprenda, construa, conquiste autonomia.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Aprender</h4>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#start" onclick="scrollTo_(&#39;start&#39;);return false">Começar do zero</a>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#tech" onclick="scrollTo_(&#39;tech&#39;);return false">Tecnologia</a>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#path" onclick="scrollTo_(&#39;path&#39;);return false">Caminho</a>
+      </div>
+      <div class="footer-col">
+        <h4>Explorar</h4>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#philosophy" onclick="scrollTo_(&#39;philosophy&#39;);return false">Liberdade</a>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#bitcoin" onclick="scrollTo_(&#39;bitcoin&#39;);return false">Bitcoin</a>
+        <a href="file:///C:/Users/salga/Downloads/index_1.html#">Blog</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Dropthree — Todos os direitos reservados</p>
+    <p>Construído com código e liberdade <span style="color:var(--purple-light)">✦</span></p>
+  </div>
+</footer>
+
+<script>
+/* ─── SMOOTH SCROLL HELPER ──────────────────────────────── */
+function scrollTo_(id){
+  if(!id){window.scrollTo({top:0,behavior:'smooth'});return;}
+  const el=document.getElementById(id);
+  if(!el)return;
+  const offset=80;
+  const top=el.getBoundingClientRect().top+window.scrollY-offset;
+  window.scrollTo({top:top,behavior:'smooth'});
+}
+
+/* ─── CURSOR ─────────────────────────────────────────────── */
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animRing)}
+animRing();
+document.querySelectorAll('a,button,.cur-btn,.ax-tag,.swap-btn,.theme-toggle').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hov');curR.classList.add('hov')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hov');curR.classList.remove('hov')});
+});
+
+/* ─── HEADER SCROLL ─────────────────────────────────────── */
+const hdr=document.getElementById('header');
+window.addEventListener('scroll',()=>hdr.classList.toggle('scrolled',window.scrollY>40));
+
+/* ─── MOBILE NAV ─────────────────────────────────────────── */
+const ham=document.getElementById('ham'),nav=document.getElementById('nav');
+ham.addEventListener('click',()=>nav.classList.toggle('open'));
+function closeNav(){nav.classList.remove('open')}
+
+/* ─── REVEAL OBSERVER ────────────────────────────────────── */
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ─── QUOTES ─────────────────────────────────────────────── */
+const QUOTES=[
+  {t:'Bitcoin é a saída do sistema que nos aprisiona.',a:'Satoshi Nakamoto'},
+  {t:'A propriedade privada é a garantia de toda liberdade.',a:'Ludwig von Mises'},
+  {t:'A inflação é o imposto mais cruel — atinge os mais pobres sem que possam votar contra.',a:'Milton Friedman'},
+  {t:'Todo homem tem direito à vida, à liberdade e à busca da felicidade.',a:'Thomas Jefferson'},
+  {t:'Quando o governo teme o povo, há liberdade.',a:'Thomas Jefferson'},
+  {t:'O livre mercado é o único mecanismo que descobriu como criar prosperidade.',a:'Friedrich Hayek'},
+  {t:'A descentralização é a única proteção duradoura contra o poder arbitrário.',a:'Friedrich Hayek'},
+  {t:'Bitcoin não é uma moeda, é uma filosofia da resistência.',a:'Andreas Antonopoulos'},
+  {t:'Não confie. Verifique.',a:'Cypherpunk Manifesto'},
+  {t:'O Estado é a grande ficção por meio da qual todos tentam viver à custa de todos.',a:'Frédéric Bastiat'},
+];
+let qIdx=0;
+function pickQuote(){
+  let n;do{n=Math.floor(Math.random()*QUOTES.length)}while(n===qIdx&&QUOTES.length>1);
+  qIdx=n;const q=QUOTES[n];
+  document.getElementById('q-text').textContent='\u201c'+q.t+'\u201d';
+  document.getElementById('q-author').textContent='— '+q.a;
+}
+pickQuote();
+setInterval(()=>{const s=document.getElementById('quote-strip');s.style.opacity='0';setTimeout(()=>{pickQuote();s.style.opacity='1';},420);},9000);
+
+/* ─── THEME TOGGLE ───────────────────────────────────────── */
+let lightMode=false;
+document.getElementById('theme-btn').addEventListener('click',()=>{
+  lightMode=!lightMode;
+  document.body.classList.toggle('light-mode',lightMode);
+});
+
+/* ─── BITCOIN CALC ───────────────────────────────────────── */
+const CURRENCIES={
+  BRL:{sym:'R$',locale:'pt-BR',dec:2},
+  USD:{sym:'$',locale:'en-US',dec:2},
+  EUR:{sym:'€',locale:'de-DE',dec:2},
+  GBP:{sym:'£',locale:'en-GB',dec:2},
+  ARS:{sym:'$',locale:'es-AR',dec:2},
+  JPY:{sym:'¥',locale:'ja-JP',dec:0},
+};
+const AXIOMS=['Descentralizado','Sem banco central','21M de limite','Sua chave, seu Bitcoin','Resistente à censura'];
+let prices={},activeCur='BRL',lastEdit='fiat',secsLeft=30,cdTimer=null,refInterval=null;
+
+function fmtFiat(v,c){const x=CURRENCIES[c];return new Intl.NumberFormat(x.locale,{minimumFractionDigits:x.dec,maximumFractionDigits:x.dec}).format(v)}
+function fmtFull(v,c){return CURRENCIES[c].sym+' '+fmtFiat(v,c)}
+function fmtBtc(v){if(v>=1)return v.toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4})+' BTC';if(v>=0.001)return v.toLocaleString('pt-BR',{minimumFractionDigits:6,maximumFractionDigits:6})+' BTC';return v.toLocaleString('pt-BR',{minimumFractionDigits:8,maximumFractionDigits:8})+' BTC'}
+function parseFiat(s,c){let x=s.replace(/[^\d,\.]/g,'');const l=CURRENCIES[c].locale;if(['pt-BR','de-DE','es-AR'].includes(l))x=x.replace(/\./g,'').replace(',','.');else x=x.replace(/,/g,'');return parseFloat(x)}
+function parseBtc(s){return parseFloat(s.replace(',','.'))}
+
+function renderPrice(){
+  const c=CURRENCIES[activeCur],p=prices[activeCur.toLowerCase()],ch=prices[activeCur.toLowerCase()+'_24h_change'];
+  const cls=ch>=0?'up':'dn',chStr=(ch>=0?'+':'')+ch.toFixed(2)+'%';
+  document.getElementById('price-area').innerHTML=`<div class="price-display"><div style="display:flex;align-items:baseline;gap:4px;margin-bottom:4px"><span class="price-main">${c.sym} ${fmtFiat(p,activeCur)}</span><span class="price-sym">/ BTC</span></div><span class="price-badge ${cls}">${chStr} 24h</span></div>`;
+}
+
+function recalc(){
+  const p=prices[activeCur.toLowerCase()];if(!p)return;
+  if(lastEdit==='fiat'){
+    const v=parseFiat(document.getElementById('fiat-in').value,activeCur);
+    if(!isNaN(v)&&v>0){const btc=v/p;document.getElementById('btc-in').value=btc.toFixed(8);document.getElementById('res-main').textContent=fmtBtc(btc);document.getElementById('res-sub').textContent=fmtFull(v,activeCur)+' → BTC';const s=Math.round(btc*1e8);document.getElementById('sats-v').textContent=s.toLocaleString('pt-BR')+' sats';document.getElementById('sats-row').style.display='flex';}
+    else{document.getElementById('btc-in').value='';document.getElementById('res-main').textContent='—';document.getElementById('res-sub').textContent='Digite um valor acima';document.getElementById('sats-row').style.display='none';}
+  } else {
+    const v=parseBtc(document.getElementById('btc-in').value);
+    if(!isNaN(v)&&v>0){const f=v*p;document.getElementById('fiat-in').value=fmtFiat(f,activeCur);document.getElementById('res-main').textContent=fmtFull(f,activeCur);document.getElementById('res-sub').textContent=v+' BTC → '+activeCur;const s=Math.round(v*1e8);document.getElementById('sats-v').textContent=s.toLocaleString('pt-BR')+' sats';document.getElementById('sats-row').style.display='flex';}
+    else{document.getElementById('fiat-in').value='';document.getElementById('res-main').textContent='—';document.getElementById('res-sub').textContent='Digite um valor acima';document.getElementById('sats-row').style.display='none';}
+  }
+}
+
+function startCd(){
+  clearInterval(cdTimer);secsLeft=30;
+  cdTimer=setInterval(()=>{secsLeft--;if(secsLeft<0)secsLeft=30;const el=document.getElementById('cd-txt'),b=document.getElementById('cd-bar');if(el)el.textContent='atualiza em '+secsLeft+'s';if(b)b.style.width=((secsLeft/30)*100)+'%';},1000);
+}
+
+async function fetchP(){
+  try{const vs=Object.keys(CURRENCIES).map(k=>k.toLowerCase()).join(',');const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies='+vs+'&include_24hr_change=true');const d=await r.json();return d.bitcoin;}catch(e){return null}
+}
+
+async function refresh(){
+  const d=await fetchP();if(!d)return;prices=d;renderPrice();recalc();
+  const n=new Date();const el=document.getElementById('upd-note');if(el)el.textContent='Atualizado às '+n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0')+':'+n.getSeconds().toString().padStart(2,'0');
+  startCd();
+}
+
+function buildAxioms(){
+  const s=document.getElementById('axiom-strip');
+  s.innerHTML=AXIOMS.map(a=>`<span class="ax-tag">${a}</span>`).join('');
+  s.querySelectorAll('.ax-tag').forEach(t=>t.addEventListener('click',()=>t.classList.toggle('on')));
+}
+
+async function initCalc(){
+  const d=await fetchP();
+  if(!d){document.getElementById('price-area').innerHTML='<div style="font-size:12px;color:#f87171;text-align:center;padding:1rem">Não foi possível carregar o preço.</div>';return;}
+  prices=d;renderPrice();
+  document.getElementById('calc-body').style.display='block';
+  buildAxioms();startCd();
+  const n=new Date();document.getElementById('upd-note').textContent='Atualizado às '+n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0')+':'+n.getSeconds().toString().padStart(2,'0');
+  document.getElementById('fiat-lbl').textContent='Valor em '+activeCur;
+  document.getElementById('fiat-sfx').textContent=CURRENCIES[activeCur].sym;
+  document.getElementById('fiat-in').addEventListener('input',()=>{lastEdit='fiat';recalc()});
+  document.getElementById('btc-in').addEventListener('input',()=>{lastEdit='btc';recalc()});
+  document.getElementById('swap-btn').addEventListener('click',()=>{lastEdit=lastEdit==='fiat'?'btc':'fiat';document.getElementById('fiat-in').value='';document.getElementById('btc-in').value='';recalc()});
+  document.getElementById('cur-grid').addEventListener('click',e=>{
+    const b=e.target.closest('.cur-btn');if(!b)return;
+    document.querySelectorAll('.cur-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+    activeCur=b.dataset.c;
+    document.getElementById('fiat-lbl').textContent='Valor em '+activeCur;
+    document.getElementById('fiat-sfx').textContent=CURRENCIES[activeCur].sym;
+    document.getElementById('fiat-in').value='';document.getElementById('btc-in').value='';
+    renderPrice();recalc();
+  });
+  refInterval=setInterval(refresh,30000);
+}
+
+initCalc();
+</script>
+
+
+</body></html>
