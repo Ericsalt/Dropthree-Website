@@ -334,3 +334,18 @@ os casos de uma vez (CSS smooth scroll e `scrollIntoView` via JS).
 - **Página 404 personalizada** (`404.html`), no mesmo design system,
   essencial para quando publicar no GitHub Pages (hoje um link quebrado
   cairia na página de erro genérica do navegador).
+
+## v2.30 — Correção visual na lista de Infraestrutura (reportado com print real)
+
+A screenshot mostrou os itens da lista (Redes Corporativas, Cabeamento
+Estruturado etc.) grudados uns nos outros, sem separação visível, e a
+tag de categoria (REDE/SEGURANÇA/INFRAESTRUTURA) sem destaque — a causa
+era a linha divisória usar uma opacidade baixa demais
+(`rgba(255,255,255,.09)`) para ser percebida contra o fundo escuro.
+
+- Linha divisória entre itens escurecida para `rgba(255,255,255,.16)` —
+  quase o dobro de opacidade, agora perceptível.
+- Tag de categoria ganhou peso (`font-weight:500`) e
+  `text-transform:uppercase` garantido via CSS.
+- Espaçamento entre tag/título/descrição na versão empilhada (telas
+  menores) ajustado para não parecer bloco único de texto.
