@@ -1,6 +1,8 @@
 (function(){
   "use strict";
 
+  var reduceMotionGlobal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   var nav = document.getElementById('nav');
   var navLinks = document.getElementById('navLinks');
   var navToggle = document.getElementById('navToggle');
@@ -82,18 +84,27 @@
       cursorDot.style.transform = 'translate3d(' + mouseX + 'px,' + mouseY + 'px,0) translate(-50%,-50%)';
       if (reduceMotion) {
         cursorRing.style.transform = 'translate3d(' + mouseX + 'px,' + mouseY + 'px,0) translate(-50%,-50%)';
+      } else {
+        startRingLoop();
       }
     });
 
     document.addEventListener('mouseleave', function(){ htmlEl.classList.remove('has-custom-cursor'); });
     document.addEventListener('mouseenter', function(){ if(started) htmlEl.classList.add('has-custom-cursor'); });
 
-    if (!reduceMotion) {
+    var ringLoopRunning = false;
+    function startRingLoop(){
+      if (ringLoopRunning || reduceMotion) return;
+      ringLoopRunning = true;
       (function loop(){
         ringX += (mouseX - ringX) * 0.16;
         ringY += (mouseY - ringY) * 0.16;
         cursorRing.style.transform = 'translate3d(' + ringX + 'px,' + ringY + 'px,0) translate(-50%,-50%)';
-        requestAnimationFrame(loop);
+        if (Math.abs(mouseX - ringX) > 0.1 || Math.abs(mouseY - ringY) > 0.1) {
+          requestAnimationFrame(loop);
+        } else {
+          ringLoopRunning = false;
+        }
       })();
     }
 
@@ -122,6 +133,160 @@
 
       window.location.href = mailtoUrl;
     });
+  }
+
+  // ===== CARROSSEL "IDEIAS QUE INSPIRAM" =====
+  var quotesTrack = document.getElementById('quotesTrack');
+  if (quotesTrack) {
+    var quotes = [
+      {
+        text: 'Onde não há lei, não há liberdade.',
+        author: 'John Locke',
+        work: 'Segundo Tratado sobre o Governo, 1689',
+        reflection: 'Regras claras não aprisionam quem constrói — libertam quem sabe onde pisa. É assim que pensamos conhecimento: uma estrutura que dá liberdade, não que a limita.'
+      },
+      {
+        text: 'Não é da benevolência do açougueiro ou do padeiro que esperamos nosso jantar, mas do interesse próprio deles.',
+        author: 'Adam Smith',
+        work: 'A Riqueza das Nações, 1776',
+        reflection: 'Quando alguém compartilha o que aprendeu, todo o ecossistema ao redor cresce junto — mesmo que o ponto de partida seja apenas construir melhor.'
+      },
+      {
+        text: 'Quem abre mão da liberdade essencial por um pouco de segurança temporária não merece nem liberdade, nem segurança.',
+        author: 'Benjamin Franklin',
+        work: '1755',
+        reflection: 'Achamos que autonomia não se troca por conveniência — inclusive a autonomia de aprender por conta própria.'
+      },
+      {
+        text: 'O Estado é a grande ficção pela qual todos tentam viver às custas de todos os outros.',
+        author: 'Frédéric Bastiat',
+        work: 'O Estado, 1848',
+        reflection: 'Preferimos comunidades que se sustentam pelo que constroem juntas, não por dependência de estrutura alheia.'
+      },
+      {
+        text: 'A liberdade não pode se estabelecer sem a moral, nem a moral sem a fé.',
+        author: 'Alexis de Tocqueville',
+        work: 'A Democracia na América, 1835',
+        reflection: 'Conhecimento sem propósito é só informação. O Forge existe para formar critério, não só repertório.'
+      },
+      {
+        text: 'A paz, e não a guerra, é a mãe de todas as coisas.',
+        author: 'Ludwig von Mises',
+        work: 'Liberalismo, 1927',
+        reflection: 'Cooperação constrói mais do que disputa. Uma comunidade de aprendizado só funciona quando todo mundo ganha junto.'
+      },
+      {
+        text: 'Quanto mais o Estado "planeja", mais difícil se torna planejar para o indivíduo.',
+        author: 'Friedrich A. Hayek',
+        work: 'O Caminho da Servidão, 1944',
+        reflection: 'Ninguém aprende por procuração. Por isso o Forge é trilha, não grade curricular fechada.'
+      },
+      {
+        text: 'Uma sociedade que coloca a igualdade antes da liberdade não terá nenhuma das duas.',
+        author: 'Milton Friedman',
+        work: 'Liberdade de Escolher, 1980',
+        reflection: 'Acreditamos em abrir oportunidade igual pra todo mundo começar — o que cada um constrói depois é mérito de quem construiu.'
+      },
+      {
+        text: 'Não existem soluções, apenas trade-offs.',
+        author: 'Thomas Sowell',
+        work: 'A Conflict of Visions, 1987',
+        reflection: 'Toda trilha de aprendizado é uma escolha do que priorizar agora. Ensinar isso é tão importante quanto o conteúdo em si.'
+      },
+      {
+        text: 'Alcançar a própria felicidade é o único propósito moral da vida.',
+        author: 'Ayn Rand',
+        work: 'A Revolta de Atlas, 1957',
+        reflection: 'Ninguém aprende de verdade por obrigação. O Forge é para quem quer aprender por si.'
+      }
+    ];
+
+    var quotesDots = document.getElementById('quotesDots');
+    var quoteIndex = 0;
+    var quoteTimer = null;
+
+    quotes.forEach(function(q, i){
+      var slide = document.createElement('div');
+      slide.className = 'quote-slide' + (i === 0 ? ' is-active' : '');
+      slide.innerHTML = '<blockquote>' + q.text + '</blockquote>'
+        + '<cite>' + q.author + ' — ' + q.work + '</cite>'
+        + '<p class="reflection">' + q.reflection + '</p>';
+      quotesTrack.appendChild(slide);
+
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Ver citação ' + (i + 1) + ' de ' + quotes.length);
+      if (i === 0) dot.classList.add('is-active');
+      dot.addEventListener('click', function(){ showQuote(i); resetQuoteTimer(); });
+      quotesDots.appendChild(dot);
+    });
+
+    var quoteSlides = quotesTrack.querySelectorAll('.quote-slide');
+    var quoteDotEls = quotesDots.querySelectorAll('button');
+
+    function showQuote(i){
+      quoteSlides[quoteIndex].classList.remove('is-active');
+      quoteDotEls[quoteIndex].classList.remove('is-active');
+      quoteIndex = i;
+      quoteSlides[quoteIndex].classList.add('is-active');
+      quoteDotEls[quoteIndex].classList.add('is-active');
+    }
+
+    function nextQuote(){ showQuote((quoteIndex + 1) % quotes.length); }
+
+    function resetQuoteTimer(){
+      if (quoteTimer) clearInterval(quoteTimer);
+      if (!reduceMotionGlobal) quoteTimer = setInterval(nextQuote, 6000);
+    }
+
+    resetQuoteTimer();
+    var quotesCarousel = document.getElementById('quotesCarousel');
+    quotesCarousel.addEventListener('mouseenter', function(){ if (quoteTimer) clearInterval(quoteTimer); });
+    quotesCarousel.addEventListener('mouseleave', resetQuoteTimer);
+  }
+
+  // formulário "quero ser avisado" da Forge — monta um mailto:
+  var forgeForm = document.getElementById('forgeForm');
+  if (forgeForm) {
+    forgeForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('forge-email').value.trim();
+      var subject = 'Quero ser avisado sobre a Forge';
+      var body = 'E-mail para aviso: ' + email;
+      window.location.href = 'mailto:dropthree3@gmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+    });
+  }
+
+  // ===== CONTADOR ANIMADO DA BARRA DE ESTATÍSTICAS =====
+  var statEls = document.querySelectorAll('.stat__num[data-count]');
+  if (statEls.length) {
+    var countUp = function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var pad = parseInt(el.getAttribute('data-pad'), 10) || 0;
+      if (reduceMotionGlobal) { el.textContent = String(target).padStart(pad, '0'); return; }
+      var duration = 1100;
+      var start = null;
+      function tick(ts){
+        if (start === null) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var value = Math.round(eased * target);
+        el.textContent = String(value).padStart(pad, '0');
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    };
+    var statObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          countUp(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    statEls.forEach(function(el){ statObserver.observe(el); });
   }
 
   // scroll reveal
@@ -156,9 +321,10 @@
     { label: 'Soluções', hint: 'seção', action: function(){ goTo('#solucoes'); } },
     { label: 'Stack tecnológico', hint: 'seção', action: function(){ goTo('#stack'); } },
     { label: 'Produtos', hint: 'seção', action: function(){ goTo('#produtos'); } },
+    { label: 'Serviços', hint: 'infraestrutura', action: function(){ goTo('#infraestrutura'); } },
     { label: 'Foundation', hint: 'seção', action: function(){ goTo('#foundation'); } },
-    { label: 'Idea Hub', hint: 'seção', action: function(){ goTo('#idea-hub'); } },
     { label: 'Fundadores', hint: 'seção', action: function(){ goTo('#fundadores'); } },
+    { label: 'Forge', hint: 'ecossistema de aprendizagem', action: function(){ window.location.href = 'forge.html'; } },
     { label: 'Contato', hint: 'seção', action: function(){ goTo('#contato'); } },
     { label: 'Abrir Lumi', hint: 'produto ↗', action: function(){ window.open('https://lumi-br.lovable.app/', '_blank', 'noopener'); } },
     { label: 'Abrir Code Bridge', hint: 'produto ↗', action: function(){ window.open('https://ericsalt.github.io/Code-Brigde/', '_blank', 'noopener'); } },
@@ -205,18 +371,26 @@
     filteredCommands.forEach(function(cmd, i){
       var li = document.createElement('li');
       li.className = 'palette__item' + (i === 0 ? ' is-active' : '');
+      li.id = 'palette-option-' + i;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
       li.innerHTML = '<span>' + cmd.label + '</span><span class="hint">' + cmd.hint + '</span>';
       li.addEventListener('click', function(){ runCommand(i); });
       li.addEventListener('mouseenter', function(){ setActive(i); });
       paletteList.appendChild(li);
     });
+    if (paletteInput) paletteInput.setAttribute('aria-activedescendant', 'palette-option-0');
   }
 
   function setActive(i){
     activeIndex = i;
     Array.prototype.forEach.call(paletteList.children, function(el, idx){
       el.classList.toggle('is-active', idx === i);
+      el.setAttribute('aria-selected', idx === i ? 'true' : 'false');
     });
+    if (paletteInput && paletteList.children[i]) {
+      paletteInput.setAttribute('aria-activedescendant', paletteList.children[i].id);
+    }
   }
 
   function runCommand(i){
@@ -264,7 +438,6 @@
 
   // ===== EFEITO DE DECODIFICAÇÃO NO HEADLINE =====
   var scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&/\\<>';
-  var reduceMotionGlobal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function scrambleText(el, finalText, duration, startDelay){
     if (reduceMotionGlobal) { el.textContent = finalText; return; }

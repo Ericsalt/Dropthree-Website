@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" type="image/png" href="favicon-32.png">
 <link rel="stylesheet" href="styles.css">
@@ -34,7 +34,7 @@
     <span></span><span></span><span></span>
   </button>
   <button class="nav__search" id="paletteTrigger" aria-label="Abrir busca rápida">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
     <span class="nav__search-label">Buscar</span>
     <span class="nav__search-kbd" id="paletteKbd">Ctrl K</span>
   </button>
@@ -42,7 +42,9 @@
     <span class="nav__indicator" id="navIndicator" aria-hidden="true"></span>
     <a href="index.html#sobre">Sobre</a>
     <a href="index.html#produtos">Produtos</a>
+    <a href="index.html#infraestrutura">Serviços</a>
     <a href="index.html#fundadores">Fundadores</a>
+    <a href="forge.html">Forge</a>
     <a href="index.html#contato" class="nav__cta">Fale com a gente</a>
   </div>
 </nav>
@@ -113,8 +115,10 @@
     <div class="footer__links">
       <a href="index.html#sobre">Sobre</a>
       <a href="index.html#produtos">Produtos</a>
+      <a href="index.html#infraestrutura">Serviços</a>
       <a href="index.html#foundation">Foundation</a>
       <a href="index.html#fundadores">Fundadores</a>
+      <a href="forge.html">Forge</a>
     </div>
     <div class="footer__social">
       <a href="https://www.instagram.com/dropthree3/" target="_blank" rel="noopener">Instagram ↗</a>
@@ -136,12 +140,12 @@
   <div class="palette__overlay" id="paletteOverlay"></div>
   <div class="palette__panel">
     <div class="palette__input-row">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="text" id="paletteInput" placeholder="Ir para uma seção, abrir um produto, copiar e-mail..." autocomplete="off">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="text" id="paletteInput" aria-label="Busca rápida" role="combobox" aria-expanded="true" aria-controls="paletteList" aria-autocomplete="list" placeholder="Ir para uma seção, abrir um produto, copiar e-mail..." autocomplete="off">
       <span class="palette__esc">ESC</span>
     </div>
-    <ul class="palette__list" id="paletteList"></ul>
-    <div class="palette__status" id="paletteStatus"></div>
+    <ul class="palette__list" id="paletteList" role="listbox"></ul>
+    <div class="palette__status" id="paletteStatus" role="status" aria-live="polite"></div>
   </div>
 </div>
 

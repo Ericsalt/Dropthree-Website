@@ -1,8 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect x="0" y="0" width="64" height="64" rx="14" fill="#0A0A0C"/>
-  <g transform="translate(7.1,10.4) scale(0.166)">
-    <rect x="105" y="40"  width="90" height="90" fill="#F2F3F5"/>
-    <rect x="15"  y="130" width="90" height="90" fill="#F2F3F5"/>
-    <rect x="195" y="130" width="90" height="90" fill="#2EC4B6"/>
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1A3557"/>
+      <stop offset="55%" stop-color="#2563A8"/>
+      <stop offset="100%" stop-color="#0F766E"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="10" fill="url(#favGrad)"/>
+  <g transform="translate(6.4,9.4) scale(0.187)">
+    <rect x="105" y="40"  width="90" height="90" fill="#FFFFFF"/>
+    <rect x="15"  y="130" width="90" height="90" fill="#FFFFFF"/>
+    <rect x="195" y="130" width="90" height="90" fill="#FFFFFF"/>
   </g>
 </svg>

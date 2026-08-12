@@ -40,7 +40,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -64,7 +64,7 @@
     <span></span><span></span><span></span>
   </button>
   <button class="nav__search" id="paletteTrigger" aria-label="Abrir busca rápida">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
     <span class="nav__search-label">Buscar</span>
     <span class="nav__search-kbd" id="paletteKbd">Ctrl K</span>
   </button>
@@ -74,9 +74,10 @@
     <a href="#metodo" data-nav>Método</a>
     <a href="#solucoes" data-nav>Soluções</a>
     <a href="#produtos" data-nav>Produtos</a>
+    <a href="#infraestrutura" data-nav>Serviços</a>
     <a href="#foundation" data-nav>Foundation</a>
-    <a href="#idea-hub" data-nav>Idea Hub</a>
     <a href="#fundadores" data-nav>Fundadores</a>
+    <a href="forge.html">Forge</a>
     <a href="#contato" class="nav__cta">Fale com a gente</a>
   </div>
 </nav>
@@ -87,7 +88,7 @@
   <section id="topo" class="hero">
     <div class="hero__bg" aria-hidden="true">
       <div class="hero__grid"></div>
-      <svg class="hero__art" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid meet">
+      <svg class="hero__art" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
         <defs>
           <linearGradient id="lineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#1A3557"/>
@@ -124,15 +125,15 @@
 
     <div class="stats" data-reveal>
       <div class="stat">
-        <span class="stat__num">02</span>
+        <span class="stat__num" data-count="2" data-pad="2">00</span>
         <span class="stat__label">Produtos no ecossistema</span>
       </div>
       <div class="stat">
-        <span class="stat__num">03</span>
+        <span class="stat__num" data-count="3" data-pad="2">00</span>
         <span class="stat__label">Sócios fundadores</span>
       </div>
       <div class="stat">
-        <span class="stat__num">20</span>
+        <span class="stat__num" data-count="20" data-pad="2">00</span>
         <span class="stat__label">Anos — nossa régua de decisão</span>
       </div>
     </div>
@@ -266,8 +267,84 @@
     </div>
   </section>
 
+  <!-- INFRAESTRUTURA -->
+  <section id="infraestrutura" class="section infra">
+    <p class="eyebrow" data-reveal>INFRAESTRUTURA</p>
+    <h2 class="section__title" data-reveal>A tecnologia não termina no software.</h2>
+    <p class="infra__intro" data-reveal>Na Dropthree, acreditamos que soluções completas vão além do
+      desenvolvimento de software. Também projetamos, implantamos e mantemos a infraestrutura tecnológica
+      que sustenta empresas modernas, conectando hardware, redes, segurança e desempenho em um único
+      ecossistema.</p>
+
+    <div class="infra-list" data-reveal>
+      <article class="infra-item">
+        <span class="infra-item__tag">REDE</span>
+        <h3>Redes Corporativas</h3>
+        <p>Projeto e implementação de redes estáveis, seguras e prontas para crescer com a empresa.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">REDE</span>
+        <h3>Cabeamento Estruturado</h3>
+        <p>Infraestrutura física organizada, documentada e pensada para durar.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">REDE</span>
+        <h3>Wi-Fi Corporativo</h3>
+        <p>Cobertura e performance de rede sem fio para ambientes de alta demanda.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">INFRAESTRUTURA</span>
+        <h3>Infraestrutura de TI</h3>
+        <p>Ambientes de TI projetados para suportar operação crítica sem gargalos.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">INFRAESTRUTURA</span>
+        <h3>Servidores e Storage</h3>
+        <p>Armazenamento e processamento dimensionados para a realidade de cada operação.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">INFRAESTRUTURA</span>
+        <h3>Cloud e Infraestrutura Híbrida</h3>
+        <p>Arquiteturas que combinam nuvem e local conforme o problema exige — não por modismo.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">SEGURANÇA</span>
+        <h3>CFTV Inteligente</h3>
+        <p>Monitoramento com inteligência aplicada, não apenas câmeras gravando.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">SEGURANÇA</span>
+        <h3>Controle de Acesso</h3>
+        <p>Segurança física integrada à operação, sem fricção para quem trabalha.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">SEGURANÇA</span>
+        <h3>Segurança de Redes</h3>
+        <p>Proteção de perímetro e dados contra ameaças reais, não apenas conformidade de papel.</p>
+      </article>
+      <article class="infra-item">
+        <span class="infra-item__tag">SUPORTE</span>
+        <h3>Manutenção e Suporte Especializado</h3>
+        <p>Suporte técnico como extensão da engenharia, não como plantão genérico.</p>
+      </article>
+    </div>
+
+    <p class="infra__slogan" data-reveal>Do software à infraestrutura, construímos tecnologia para problemas reais.</p>
+
+    <div class="infra__cta" data-reveal>
+      <div class="infra__cta-text">
+        <p class="infra__cta-title">Precisa de um diagnóstico de infraestrutura?</p>
+        <p class="infra__cta-sub">Entre em contato por e-mail — dropthree3@gmail.com</p>
+      </div>
+      <a href="mailto:dropthree3@gmail.com?subject=Interesse%20em%20Infraestrutura%20de%20TI&body=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20infraestrutura%20de%20TI%20com%20a%20Dropthree."
+         class="btn btn--primary">
+        Entrar em contato por e-mail
+      </a>
+    </div>
+  </section>
+
   <!-- FOUNDATION -->
-  <section id="foundation" class="section foundation">
+  <section id="foundation" class="section section--elevated foundation">
     <div class="foundation__card" data-reveal>
       <div class="foundation__head">
         <span class="foundation__mono">DOCUMENTO — V1.0</span>
@@ -288,14 +365,21 @@
     </div>
   </section>
 
-  <!-- IDEA HUB -->
-  <section id="idea-hub" class="section idea-hub">
-    <p class="eyebrow" data-reveal>IDEA HUB</p>
-    <h2 class="section__title" data-reveal>Onde vamos publicar o que aprendemos construindo.</h2>
-    <p class="idea-hub__sub" data-reveal>Ainda estamos escrevendo os primeiros textos — sobre produto,
-      engenharia, IA aplicada e os bastidores de como pensamos. Em breve, tudo aqui.</p>
+  <!-- FORGE TEASER (inclui prévia do que era Idea Hub) -->
+  <section id="forge-teaser" class="section forge-teaser">
+    <div class="forge-teaser__inner" data-reveal>
+      <p class="eyebrow">INICIATIVA DROPTHREE</p>
+      <h2 class="forge-teaser__title">Forge</h2>
+      <p class="forge-teaser__subtitle">Conhecimento constrói liberdade.</p>
+      <p class="forge-teaser__text">Enquanto construímos soluções digitais para problemas reais, também
+        acreditamos em compartilhar tudo aquilo que aprendemos ao longo dessa jornada. O Forge é uma
+        iniciativa da Dropthree criada para democratizar o conhecimento, conectar pessoas e formar
+        profissionais preparados para construir o futuro. Mais do que ensinar tecnologia, queremos
+        desenvolver pensamento crítico, autonomia e a capacidade de transformar conhecimento em
+        oportunidades.</p>
+    </div>
 
-    <div class="hub__grid" data-reveal>
+    <div class="hub__grid forge-teaser__grid" data-reveal>
       <article class="hub-card">
         <span class="hub-card__tag">EM BREVE</span>
         <h3>Produto &amp; Design</h3>
@@ -313,7 +397,9 @@
       </article>
     </div>
 
-    <a href="#contato" class="idea-hub__cta" data-reveal>Quer ser avisado quando publicarmos? Fale com a gente ↓</a>
+    <div class="forge-teaser__cta" data-reveal>
+      <a href="forge.html" class="btn btn--primary">Conhecer o Forge</a>
+    </div>
   </section>
 
   <!-- FUNDADORES -->
@@ -380,8 +466,10 @@
       <div class="footer__links">
         <a href="#sobre">Sobre</a>
         <a href="#produtos">Produtos</a>
+        <a href="#infraestrutura">Serviços</a>
         <a href="#foundation">Foundation</a>
         <a href="#fundadores">Fundadores</a>
+        <a href="forge.html">Forge</a>
       </div>
       <div class="footer__social">
         <a href="https://www.instagram.com/dropthree3/" target="_blank" rel="noopener">Instagram ↗</a>
@@ -405,12 +493,12 @@
   <div class="palette__overlay" id="paletteOverlay"></div>
   <div class="palette__panel">
     <div class="palette__input-row">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="text" id="paletteInput" placeholder="Ir para uma seção, abrir um produto, copiar e-mail..." autocomplete="off">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="text" id="paletteInput" aria-label="Busca rápida" role="combobox" aria-expanded="true" aria-controls="paletteList" aria-autocomplete="list" placeholder="Ir para uma seção, abrir um produto, copiar e-mail..." autocomplete="off">
       <span class="palette__esc">ESC</span>
     </div>
-    <ul class="palette__list" id="paletteList"></ul>
-    <div class="palette__status" id="paletteStatus"></div>
+    <ul class="palette__list" id="paletteList" role="listbox"></ul>
+    <div class="palette__status" id="paletteStatus" role="status" aria-live="polite"></div>
   </div>
 </div>
 
